@@ -1,0 +1,12 @@
+CI process
+------------
+Assumption:
+   Jenkins is the CI server.
+   Jenkins agent ( with label "build") has all the necessary software to build the docker container
+   Code is checked into Git along with "Dockerfile" and "Jenkinsfile"
+   The deployment happens on a Jenkins agent with label "qa"
+   The user will test the code by using the qa machine url ( https://qaserver:80 )
+1. Create a Jenkins pipeline job 
+2. Configure git repository and branch to pull code
+3. Configure build trigger to start the build as soon as the code committed
+4. Specify Jenkins file location in the git repository

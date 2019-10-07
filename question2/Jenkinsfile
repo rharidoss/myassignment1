@@ -1,0 +1,26 @@
+pipeline {
+    agent none
+    stages {
+        stage('Build image') {
+            steps {
+                echo 'Starting to build docker image'
+                agent { label 'build' }
+                script {
+                   sh ''
+                   sh ''
+                   def customImage = docker.build("hello-world:${env.BUILD_ID}")
+                   customImage.push()
+                }
+            }
+        }
+        stage('install image') {
+            agent { label 'qa' }
+            steps {
+                script {
+                  sh 'docker pull "hello-world:latest"
+                  sh 'docker run -p 80:80 hello-world:latest'
+                 }
+              }
+            }
+        }
+}
